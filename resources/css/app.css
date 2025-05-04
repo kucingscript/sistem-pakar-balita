@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.swal2-confirm {
+    background-color: #28a745 !important;
+    border-color: #28a745 !important;
+}
