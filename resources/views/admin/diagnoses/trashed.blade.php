@@ -41,7 +41,11 @@
                     {
                         data: 'result_percentage',
                         name: 'result_percentage',
-                        orderable: true
+                        searchable: true,
+                        orderable: false,
+                        render: function(data, type, row) {
+                            return data + '%';
+                        }
                     },
                     {
                         data: 'action',

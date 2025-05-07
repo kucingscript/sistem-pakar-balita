@@ -90,6 +90,61 @@
                 </div>
             </div>
 
+            <div class="mt-8">
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-4">Metode Certainty Factor (CF)</h3>
+                    <p class="text-gray-700 text-sm leading-relaxed">
+                        Certainty Factor (CF) adalah metode yang digunakan untuk merepresentasikan tingkat keyakinan
+                        seorang pakar terhadap suatu diagnosis berdasarkan gejala tertentu.
+                    </p>
+
+                    <div class="mt-4 text-sm text-gray-800 bg-gray-100 p-4 rounded">
+                        <p><strong>Rumus dasar:</strong></p>
+                        <p class="mt-2"><code>CF = MB - MD</code></p>
+                        <ul class="mt-2 list-disc list-inside text-gray-700">
+                            <li><strong>MB (Measure of Belief):</strong> Ukuran tingkat kepercayaan terhadap hipotesis
+                                berdasarkan gejala.</li>
+                            <li><strong>MD (Measure of Disbelief):</strong> Ukuran tingkat ketidakpercayaan terhadap
+                                hipotesis berdasarkan gejala.</li>
+                        </ul>
+                    </div>
+
+                    <p class="text-gray-700 text-sm mt-4 leading-relaxed">
+                        Nilai CF akhir akan berada dalam rentang <strong>-1 hingga 1</strong>, lalu dikonversi ke dalam
+                        bentuk persen:
+                    </p>
+
+                    <div class="mt-3 text-sm text-gray-800 bg-gray-100 p-4 rounded">
+                        <p><strong>Konversi ke persen:</strong></p>
+                        <p class="mt-2"><code>CF (%) = CF × 100%</code></p>
+                        <p class="mt-2">Contoh: Jika nilai CF = 0.75 maka hasilnya adalah 75%</p>
+                    </div>
+
+                    <p class="text-gray-700 text-sm mt-4 leading-relaxed">
+                        Jika terdapat lebih dari satu gejala, maka kombinasi CF dilakukan dengan rumus berikut:
+                    </p>
+
+                    <div class="mt-3 text-sm text-gray-800 bg-gray-100 p-4 rounded">
+                        <p><strong>Rumus kombinasi CF:</strong></p>
+                        <p class="mt-2">
+                            <code>
+                                CF<sub>combine</sub> = CF<sub>1</sub> + CF<sub>2</sub> × (1 - CF<sub>1</sub>)
+                            </code>
+                        </p>
+                        <p class="mt-2">
+                            Proses kombinasi dilakukan secara iteratif untuk semua gejala yang relevan terhadap suatu
+                            penyakit.
+                        </p>
+                    </div>
+
+                    <p class="text-gray-700 text-sm mt-4 leading-relaxed">
+                        Dengan metode ini, sistem dapat menghitung dan menampilkan daftar kemungkinan penyakit
+                        berdasarkan nilai CF tertinggi dalam bentuk persentase.
+                    </p>
+                </div>
+            </div>
+
+
         </div>
     </div>
 </x-app-layout>

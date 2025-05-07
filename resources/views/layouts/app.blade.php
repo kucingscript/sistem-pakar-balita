@@ -55,7 +55,6 @@
     <script src="https://cdn.datatables.net/rowreorder/1.3.2/js/dataTables.rowReorder.min.js"></script>
     <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.10/js/dataTables.checkboxes.min.js"></script>
     <script src="https://cdn.datatables.net/select/1.7.1/js/dataTables.select.min.js"></script>
-    <script src="//cdn.ckeditor.com/40.0.0/standard/ckeditor.js"></script>
     <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -168,7 +167,6 @@
     <div class="min-h-screen bg-gray-100">
         @include('layouts.navigation')
 
-        <!-- Page Heading -->
         @isset($header)
             <header class="bg-white shadow">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
@@ -177,7 +175,6 @@
             </header>
         @endisset
 
-        <!-- Page Content -->
         <main>
             {{ $slot }}
         </main>
@@ -187,7 +184,6 @@
 
     @livewireScripts
 
-    {{-- Sweetalert if error exist --}}
     @if (session()->has('error'))
         <script>
             Swal.fire({
@@ -198,7 +194,6 @@
         </script>
     @endif
 
-    {{-- Sweetalert if success exist --}}
     @if (session()->has('success'))
         <script>
             Swal.fire({
