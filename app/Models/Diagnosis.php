@@ -13,5 +13,5 @@ class Diagnosis extends Model
     protected $dates = ['deleted_at'];
     protected $cast = ['symptoms' => 'array'];
 
-    protected $fillable = ['result_disease', 'result_percentage', 'symptoms'];
+    protected $fillable = ['patient_name', 'result_disease', 'result_percentage', 'result_treatment', 'symptoms'];
 }

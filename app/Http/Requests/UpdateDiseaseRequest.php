@@ -24,6 +24,7 @@ class UpdateDiseaseRequest extends FormRequest
         return [
             'code' => 'required|string|max:255|unique:diseases,code,' . $this->route('disease')->id,
             'name' => 'required|string|max:255',
+            'treatment' => 'required|string|max:255',
         ];
     }
 }

@@ -27,6 +27,12 @@
                         searchable: false,
                     },
                     {
+                        data: 'patient_name',
+                        name: 'patient_name',
+                        searchable: true,
+                        orderable: true
+                    },
+                    {
                         data: 'symptoms',
                         name: 'symptoms',
                         searchable: true,
@@ -35,6 +41,12 @@
                     {
                         data: 'result_disease',
                         name: 'result_disease',
+                        searchable: true,
+                        orderable: true
+                    },
+                    {
+                        data: 'result_treatment',
+                        name: 'result_treatment',
                         searchable: true,
                         orderable: true
                     },
@@ -68,8 +80,10 @@
                             <thead>
                                 <tr>
                                     <th style="max-width: 1%">No.</th>
+                                    <th>Patient</th>
                                     <th>Symptoms</th>
                                     <th>Disease</th>
+                                    <th>Treatment</th>
                                     <th>Percentage</th>
                                     <th style="max-width: 1%">Action</th>
                                 </tr>

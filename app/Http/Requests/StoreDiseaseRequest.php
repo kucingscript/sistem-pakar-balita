@@ -24,6 +24,7 @@ class StoreDiseaseRequest extends FormRequest
         return [
             'code' => 'required|string|max:255|unique:diseases,code',
             'name' => 'required|string|max:255',
+            'treatment' => 'required|string|max:255',
         ];
     }
 }

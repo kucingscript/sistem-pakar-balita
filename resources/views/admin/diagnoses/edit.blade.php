@@ -32,6 +32,21 @@
                     @csrf
                     @method('put')
 
+                    <div class="flex flex-wrap px-3 mt-4 mb-6 -mx-3">
+                        <div class="w-full">
+                            <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase"
+                                for="grid-last-name">
+                                Patient Name*
+                            </label>
+                            <input value="{{ old('patient_name') ?? $diagnosis->patient_name }}" name="patient_name"
+                                class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500"
+                                id="grid-last-name" type="text" placeholder="Patient Name" required>
+                            <div class="mt-2 text-sm text-gray-500">
+                                Patient Name. ex: John Doe, Jane Doe. Required. Max 255 characters.
+                            </div>
+                        </div>
+                    </div>
+
                     <div id="symptom-inputs">
                         @foreach ($selectedSymptoms as $index => $symptomInput)
                             <div class="symptom-group relative border border-gray-200 rounded p-4">

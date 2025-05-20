@@ -22,6 +22,7 @@ class DiagnosisRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'patient_name' => 'required|string|max:255',
             'symptoms' => 'required|array',
             'symptoms.*.code' => 'required|string|exists:symptoms,code',
             'symptoms.*.confidence' => 'required|numeric|min:0|max:1',

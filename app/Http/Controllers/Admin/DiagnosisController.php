@@ -100,8 +100,13 @@ class DiagnosisController extends Controller
         $diagnosedDisease = array_key_first($resultScores);
         $diagnosedPercentage = $resultScores[$diagnosedDisease];
 
+        $disease = Disease::where('name', $diagnosedDisease)->first();
+        $treatment = $disease?->treatment ?? 'Tidak tersedia';
+
         Diagnosis::create([
+            'patient_name' => $request->patient_name,
             'result_disease' => $diagnosedDisease,
+            'result_treatment' => $treatment,
             'result_percentage' => round($diagnosedPercentage, 2),
             'symptoms' => $inputSymptoms->toJson(),
         ]);
@@ -164,8 +169,13 @@ class DiagnosisController extends Controller
         $diagnosedDisease = array_key_first($resultScores);
         $diagnosedPercentage = $resultScores[$diagnosedDisease];
 
+        $disease = Disease::where('name', $diagnosedDisease)->first();
+        $treatment = $disease?->treatment ?? 'Tidak tersedia';
+
         $diagnosis->update([
+            'patient_name' => $request->patient_name,
             'result_disease' => $diagnosedDisease,
+            'result_treatment' => $treatment,
             'result_percentage' => round($diagnosedPercentage, 2),
             'symptoms' => $inputSymptoms->toJson(),
         ]);

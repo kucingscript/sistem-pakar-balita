@@ -39,6 +39,12 @@
                         orderable: true
                     },
                     {
+                        data: 'treatment',
+                        name: 'treatment',
+                        searchable: true,
+                        orderable: true
+                    },
+                    {
                         data: 'action',
                         name: 'action',
                         orderable: false,
@@ -61,6 +67,7 @@
                                     <th style="max-width: 1%">No.</th>
                                     <th>Code</th>
                                     <th>Name</th>
+                                    <th>Treatment</th>
                                     <th style="max-width: 1%">Action</th>
                                 </tr>
                             </thead>

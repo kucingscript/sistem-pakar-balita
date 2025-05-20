@@ -12,10 +12,7 @@ class Disease extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $fillable = [
-        'code',
-        'name',
-    ];
+    protected $fillable = ['code', 'name', 'treatment'];
 
     public function symptoms()
     {
