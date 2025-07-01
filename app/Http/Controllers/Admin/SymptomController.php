@@ -17,10 +17,16 @@ class SymptomController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         if (request()->ajax()) {
             $query = Symptom::with('disease');
+
+            if ($request->filled('disease_id') && $request->input('disease_id') !== 'all') {
+                $query->where('disease_id', $request->input('disease_id'));
+            }
+
+            $query->orderByRaw('CAST(SUBSTRING(code, 2) AS UNSIGNED) ASC');
 
             return DataTables::of($query)
                 ->addIndexColumn()
@@ -48,7 +54,8 @@ class SymptomController extends Controller
                 ->make();
         }
 
-        return view('admin.symptoms.index');
+        $diseases = Disease::orderBy('name')->get();
+        return view('admin.symptoms.index', compact('diseases'));
     }
 
     /**
@@ -66,6 +73,8 @@ class SymptomController extends Controller
     public function store(StoreSymptomRequest $request)
     {
         $data = $request->all();
+        $data['weight'] = $data['mb'] - $data['md'];
+
         Symptom::create($data);
         return redirect()->route('admin.symptoms.index')->with('success', 'Symptom created successfully');
     }
@@ -100,6 +109,8 @@ class SymptomController extends Controller
     public function update(UpdateSymptomRequest $request, Symptom $symptom)
     {
         $data = $request->all();
+        $data['weight'] = $data['mb'] - $data['md'];
+
         $symptom->update($data);
         return redirect()->route('admin.symptoms.index')->with('success', 'Symptom updated successfully');
     }
@@ -124,6 +135,7 @@ class SymptomController extends Controller
     {
         if (request()->ajax()) {
             $query = Symptom::onlyTrashed();
+            $query->orderByRaw('CAST(SUBSTRING(code, 2) AS UNSIGNED) ASC');
 
             return DataTables::of($query)
                 ->addIndexColumn()

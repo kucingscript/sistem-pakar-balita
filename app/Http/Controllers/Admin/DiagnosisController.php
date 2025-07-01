@@ -74,29 +74,35 @@ class DiagnosisController extends Controller
      */
     public function store(DiagnosisRequest $request)
     {
-        $inputSymptoms = collect($request->symptoms);
+        $patientName = $request->patient_name;
+        $inputSymptoms = collect($request->symptoms)->keyBy('code');
 
-        $symptomModels = Symptom::with('disease')->whereIn('code', $inputSymptoms->pluck('code'))->get();
-        $allDiseaseSymptoms = Symptom::with('disease')->get()->groupBy('disease.name');
+        $allSymptomsWithDiseases = Symptom::with('disease')->get();
+
+        $symptomsByDisease = $allSymptomsWithDiseases->groupBy('disease.name');
 
         $resultScores = [];
 
-        foreach ($allDiseaseSymptoms as $diseaseName => $symptoms) {
-            $score = 0;
-            $maxScore = $symptoms->sum('weight');
+        foreach ($symptomsByDisease as $diseaseName => $symptomsOfThisDisease) {
+            $combinedCF = 0.0;
 
-            foreach ($symptoms as $symptom) {
-                $userInput = $inputSymptoms->firstWhere('code', $symptom->code);
-                if ($userInput) {
-                    $score += $symptom->weight * $userInput['confidence'];
+            foreach ($symptomsOfThisDisease as $symptom) {
+                if ($inputSymptoms->has($symptom->code)) {
+                    $userInputSymptom = $inputSymptoms->get($symptom->code);
+                    $cfPasien = (float) $userInputSymptom['confidence'];
+
+                    $cfPakar = $symptom->mb - $symptom->md;
+
+                    $cfH_E_for_symptom = $cfPakar * $cfPasien;
+
+                    $combinedCF = $combinedCF + $cfH_E_for_symptom * (1 - $combinedCF);
                 }
             }
-
-            $percentage = $maxScore > 0 ? ($score / $maxScore) * 100 : 0;
-            $resultScores[$diseaseName] = $percentage;
+            $resultScores[$diseaseName] = $combinedCF * 100;
         }
 
         arsort($resultScores);
+
         $diagnosedDisease = array_key_first($resultScores);
         $diagnosedPercentage = $resultScores[$diagnosedDisease];
 
@@ -104,7 +110,7 @@ class DiagnosisController extends Controller
         $treatment = $disease?->treatment ?? 'Tidak tersedia';
 
         Diagnosis::create([
-            'patient_name' => $request->patient_name,
+            'patient_name' => $patientName,
             'result_disease' => $diagnosedDisease,
             'result_treatment' => $treatment,
             'result_percentage' => round($diagnosedPercentage, 2),
@@ -145,27 +151,35 @@ class DiagnosisController extends Controller
      */
     public function update(DiagnosisRequest $request, Diagnosis $diagnosis)
     {
-        $inputSymptoms = collect($request->symptoms);
-        $allDiseaseSymptoms = Symptom::with('disease')->get()->groupBy('disease.name');
+        $patientName = $request->patient_name;
+        $inputSymptoms = collect($request->symptoms)->keyBy('code');
+
+        $allSymptomsWithDiseases = Symptom::with('disease')->get();
+
+        $symptomsByDisease = $allSymptomsWithDiseases->groupBy('disease.name');
 
         $resultScores = [];
 
-        foreach ($allDiseaseSymptoms as $diseaseName => $symptoms) {
-            $score = 0;
-            $maxScore = $symptoms->sum('weight');
+        foreach ($symptomsByDisease as $diseaseName => $symptomsOfThisDisease) {
+            $combinedCF = 0.0;
 
-            foreach ($symptoms as $symptom) {
-                $userInput = $inputSymptoms->firstWhere('code', $symptom->code);
-                if ($userInput) {
-                    $score += $symptom->weight * $userInput['confidence'];
+            foreach ($symptomsOfThisDisease as $symptom) {
+                if ($inputSymptoms->has($symptom->code)) {
+                    $userInputSymptom = $inputSymptoms->get($symptom->code);
+                    $cfPasien = (float) $userInputSymptom['confidence'];
+
+                    $cfPakar = $symptom->mb - $symptom->md;
+
+                    $cfH_E_for_symptom = $cfPakar * $cfPasien;
+
+                    $combinedCF = $combinedCF + $cfH_E_for_symptom * (1 - $combinedCF);
                 }
             }
-
-            $percentage = $maxScore > 0 ? ($score / $maxScore) * 100 : 0;
-            $resultScores[$diseaseName] = $percentage;
+            $resultScores[$diseaseName] = $combinedCF * 100;
         }
 
         arsort($resultScores);
+
         $diagnosedDisease = array_key_first($resultScores);
         $diagnosedPercentage = $resultScores[$diagnosedDisease];
 
@@ -173,7 +187,7 @@ class DiagnosisController extends Controller
         $treatment = $disease?->treatment ?? 'Tidak tersedia';
 
         $diagnosis->update([
-            'patient_name' => $request->patient_name,
+            'patient_name' => $patientName,
             'result_disease' => $diagnosedDisease,
             'result_treatment' => $treatment,
             'result_percentage' => round($diagnosedPercentage, 2),

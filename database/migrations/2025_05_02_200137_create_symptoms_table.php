@@ -15,7 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('code')->unique();
             $table->string('description');
-            $table->float('weight');
+
+            $table->float('mb');
+            $table->float('md');
+            $table->float('weight')->nullable();
 
             $table->foreignId('disease_id')->constrained()->cascadeOnDelete();
 

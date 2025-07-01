@@ -30,13 +30,27 @@
                         data: 'code',
                         name: 'symptoms.code',
                         searchable: true,
-                        orderable: true
+                        orderable: false
                     },
                     {
                         data: 'description',
                         name: 'description',
                         searchable: true,
                         orderable: true
+                    },
+                    {
+                        data: 'mb',
+                        name: 'mb',
+                        searchable: true,
+                        orderable: true
+
+                    },
+                    {
+                        data: 'md',
+                        name: 'md',
+                        searchable: true,
+                        orderable: true
+
                     },
                     {
                         data: 'weight',
@@ -74,6 +88,8 @@
                                     <th style="max-width: 1%">No.</th>
                                     <th>Code</th>
                                     <th>Description</th>
+                                    <th>MB</th>
+                                    <th>MD</th>
                                     <th>Weight</th>
                                     <th>Disease</th>
                                     <th style="max-width: 1%">Action</th>

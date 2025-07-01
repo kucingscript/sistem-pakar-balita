@@ -13,6 +13,9 @@
                 stateSave: true,
                 ajax: {
                     url: '{!! url()->current() !!}',
+                    data: function(d) {
+                        d.disease_id = $('#diseaseFilter').val();
+                    }
                 },
                 order: [
                     [1, 'asc']
@@ -27,7 +30,7 @@
                         data: 'code',
                         name: 'symptoms.code',
                         searchable: true,
-                        orderable: true
+                        orderable: false
                     },
                     {
                         data: 'description',
@@ -36,11 +39,22 @@
                         orderable: true
                     },
                     {
+                        data: 'mb',
+                        name: 'mb',
+                        searchable: true,
+                        orderable: true
+                    },
+                    {
+                        data: 'md',
+                        name: 'md',
+                        searchable: true,
+                        orderable: true
+                    },
+                    {
                         data: 'weight',
                         name: 'weight',
                         searchable: true,
                         orderable: true
-
                     },
                     {
                         data: 'disease.name',
@@ -57,12 +71,16 @@
                     },
                 ],
             });
+
+            $('#diseaseFilter').on('change', function() {
+                datatable.ajax.reload();
+            });
         </script>
     </x-slot>
 
     <div class="py-12 px-4 md:px-8 lg:px-16">
         <div class="container mx-auto max-w-7xl">
-            <div class="flex flex-wrap gap-2 mb-10">
+            <div class="flex flex-wrap items-end gap-2 mb-10">
                 <a href="{{ route('admin.symptoms.create') }}"
                     class="px-4 py-2 font-bold text-white bg-green-500 rounded shadow-lg hover:bg-green-700">
                     + Create Symptom
@@ -78,6 +96,18 @@
                         View Trashed symptoms ({{ $trashed }})
                     </a>
                 @endif
+
+                <div class="ml-auto">
+                    <label for="diseaseFilter" class="block text-sm font-medium text-gray-700">Filter by
+                        Disease</label>
+                    <select id="diseaseFilter" name="disease_id"
+                        class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                        <option value="all">All Diseases</option>
+                        @foreach ($diseases as $disease)
+                            <option value="{{ $disease->id }}">{{ $disease->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
             <div class="overflow-hidden shadow sm:rounded-md">
                 <div class="px-4 py-5 bg-white sm:p-6">
@@ -87,6 +117,8 @@
                                 <th style="max-width: 1%">No.</th>
                                 <th>Code</th>
                                 <th>Description</th>
+                                <th>MB</th>
+                                <th>MD</th>
                                 <th>Weight</th>
                                 <th>Disease</th>
                                 <th style="max-width: 1%">Action</th>

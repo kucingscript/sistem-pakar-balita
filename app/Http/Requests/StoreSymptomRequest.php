@@ -24,7 +24,8 @@ class StoreSymptomRequest extends FormRequest
         return [
             'code' => 'required|string|max:255|unique:symptoms,code',
             'description' => 'required|string|max:255',
-            'weight' => 'required|numeric|min:0|max:1',
+            'mb' => 'required|numeric|min:0|max:1',
+            'md' => 'required|numeric|min:0|max:1',
             'disease_id' => 'required|exists:diseases,id',
         ];
     }
