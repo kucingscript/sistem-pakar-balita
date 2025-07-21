@@ -1,61 +1,96 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Toddler Health Expert System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+![Application Preview](preview.png)
 
-## About Laravel
+A web-based expert system designed to assist in the preliminary diagnosis of common health issues in toddlers. Users can input observed symptoms, and the system will provide a potential diagnosis based on a predefined knowledge base of diseases and their corresponding symptoms. The application is built with the Laravel framework.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+-   **User Authentication:** Secure registration and login for users.
+-   **Symptom-Based Diagnosis:** Interactive checklist of symptoms to determine potential health issues.
+-   **Admin Dashboard:** A dedicated panel for administrators to manage the application's data.
+-   **Knowledge Base Management:** Admins can perform CRUD (Create, Read, Update, Delete) operations on diseases and symptoms.
+-   **User Management:** Admins can manage user accounts.
+-   **Diagnosis History:** View past diagnosis results.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Tech Stack
 
-## Learning Laravel
+-   [Laravel](https://laravel.com/)
+-   [PHP](https://www.php.net/)
+-   [SQLite](https://www.sqlite.org/) / [MySQL](https://www.mysql.com/)
+-   [Tailwind CSS](https://tailwindcss.com/)
+-   [Vite](https://vitejs.dev/)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Installation Guide
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Follow these steps to get the project up and running on your local machine.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+1.  **Clone the repository:**
 
-## Laravel Sponsors
+    ```bash
+    git clone https://github.com/kucingscript/sistem-pakar-balita.git
+    ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+2.  **Navigate to the project directory:**
 
-### Premium Partners
+    ```bash
+    cd sistempakar-balita
+    ```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development/)**
-- **[Active Logic](https://activelogic.com)**
+3.  **Install Composer dependencies:**
 
-## Contributing
+    ```bash
+    composer install
+    ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+4.  **Install NPM dependencies:**
 
-## Code of Conduct
+    ```bash
+    npm install
+    ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+5.  **Create your environment file:**
+    Copy the example environment file and generate your application key.
 
-## Security Vulnerabilities
+    ```bash
+    cp .env.example .env
+    ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+6.  **Generate an application key:**
 
-## License
+    ```bash
+    php artisan key:generate
+    ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+7.  **Configure your database:**
+    Open the `.env` file and set your database connection details (e.g., `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`).
+
+8.  **Run database migrations and seeders:**
+    This will create the necessary tables and populate them with initial data.
+
+    ```bash
+    php artisan migrate --seed
+    ```
+
+9.  **Build front-end assets:**
+
+    ```bash
+    npm run dev
+    ```
+
+10. **Start the development server:**
+    ```bash
+    php artisan serve
+    ```
+    The application will be available at `http://127.0.0.1:8000`.
+
+## Usage
+
+After installation, you can access the application in your web browser.
+
+### Default Admin Account
+
+The database seeder creates a default admin user with the following credentials:
+
+-   **Email:** `admin@admin.com`
+-   **Password:** `admin123`
